@@ -3,19 +3,29 @@
 #include <stdio.h>
 
 int main() {
+
+    // INSTRUCTIONS / MEM_NAMES
+    uint8_t Add = 0, Sub = 1, Or = 2, Nor= 3, And = 4, Nand = 5, Xor = 6, Xnor = 7, Shl = 8, Shr = 9, Rol = 10, Ror = 11, BEQ = 12, BNE = 13, BNL = 14, BLS = 15, BGR = 16, BNG = 17, BIC = 18, BNC = 19, BIN = 20, BNN = 21, BIZ = 22, BNZ = 23, Brk = 63;
+    uint8_t Im1 = 64, Im2 = 128;
+    uint8_t Reg0 = 0, Reg1 = 1, Reg2 = 2, Reg3 = 3, Reg4 = 4, Reg5 = 5, Reg6 = 6, Ram = 7, Stk = 8, Clk = 9;
+
     // MEMORY
     uint8_t RAM[256], Stack[256];
     uint8_t SP = 0, Out, In1, In2, Func;
     uint8_t Memory[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     bool Error = false, CarryFlag = false, ZeroFlag = true, NegFlag = false;
-    uint8_t progOut[]  = {8,  8,  8,  5, 5, 5, 0  };
-    uint8_t progIn2[]  = {0,  0,  0,  0, 0, 0, 0  };
-    uint8_t progIn1[]  = {3,  2,  1,  8, 8, 8, 0  };
-    uint8_t progFunc[] = {64, 64, 64, 0, 0, 0, 255};
 
+    // ASM VARIABLES
+    uint8_t a = 9, b = 5, MUL = 2;
+
+    // ASM CODE
+    uint8_t progOut[]  = {Reg6,      Reg0, Reg2, Reg1, Reg3, Reg6,      Reg0, Reg1,      Reg3, Reg6,      Reg0, Reg5, Reg6, Reg0, Stk,       Stk,       Stk,       Reg6,      Reg0, Reg0};
+    uint8_t progIn1[]  = {Clk,       Reg0, Stk,  Stk,  Reg0, Clk,       Reg1, Reg1,      Reg3, Clk,       Reg0, Reg3, Stk,  Reg0, Clk,       a,         b,         MUL,       Reg0, Reg0};
+    uint8_t progIn2[]  = {14,        Reg0, Reg0, Reg0, Reg0, 6,         Reg0, 1,         Reg2, 4,         Reg0, Reg0, Reg0, Reg0, 5,         Reg0,      Reg0,      Reg0,      Reg0, Reg0};
+    uint8_t progFunc[] = {Add + Im2, BEQ,  Add,  Add,  Add,  Add + Im2, BEQ,  Sub + Im2, Add,  Sub + Im2, BEQ,  Add,  Add,  BEQ,  Add + Im2, Add + Im1, Add + Im1, Add + Im1, BEQ,  Brk};
 
     // MAIN LOOP
-    while (progFunc[Memory[9]] != 255  && Error == false) {
+    while (progFunc[Memory[9]] != 63  && Error == false) {
         Memory[0] = 0;
         Func = progFunc[Memory[9]] & 63;
         if ((progFunc[Memory[9]] & 128) == 128) {
@@ -44,10 +54,10 @@ int main() {
             SP += 1;
         }
 
-        printf("Func: %d\n", Func);
-        printf("In1: %d\n", In1);
-        printf("In2: %d\n", In2);
-        printf("Out: %d\n", Out);
+        //printf("Func: %d\n", Func);
+        //printf("In1: %d\n", In1);
+        //printf("In2: %d\n", In2);
+        //printf("Out: %d\n", Out);
 
         Memory[7] = Memory[6];
         Memory[8] = Stack[SP];
