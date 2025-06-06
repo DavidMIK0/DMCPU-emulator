@@ -1,1 +1,44 @@
+// This is a program that has a function that multiplies two numbers.
+// You can add labels by typing their name followed by a colon (start:).
+// As you can probably tell you can also make comments by typing two slashes.
+// If you are interested in writing an program for this emulator check out the README file in the github repository
+
+
+start:
+    // function setup
+    stk after_mul_return 0 add
+    stk 9 0 add         // first function input
+    stk 4 0 add         // second function input
+    reg6 mul 0 add
+    reg0 0 0 beq
+
+after_mul_return:
+    // moving the function result to reg5 (the output register)
+    reg5 reg3 0 add
+    reg6 end 0 add
+    reg0 0 0 beq
+
+end:
+    // the program end
+    reg0 0 0 brk
+
+mul:
+    // regigter setup for the function
+    reg2 stk 0 add
+    reg1 stk 0 add
+    reg3 0 0 add
+
+mul_loop:
+    // multiplication logic
+    reg6 mul_done 0 add
+    reg0 reg2 0 beq
+    reg3 reg3 reg1 add
+    reg2 reg2 1 sub
+    reg6 mul_loop 0 add
+    reg0 0 0 beq
+
+mul_done:
+    // branching to the return adress
+    reg6 stk 0 add
+    reg0 0 0 beq
 
