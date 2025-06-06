@@ -15,6 +15,7 @@ The asm syntax is:
   reg6 also acts as the RAM address.
 
 The instructions are:
+  
   0 / add / adds the inputs and stores the result in the output, if result is greater than 255 it sets the carry flag, if its negative it sets the negative flag, and if its zero it sets the zero flag
   
   1 / sub / subtracts the inputs and stores the result in the output, if result isnt negative it sets the carry flag, if its negative it sets the negative flag, and if its zero it sets the zero flag
