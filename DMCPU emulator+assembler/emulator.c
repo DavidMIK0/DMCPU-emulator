@@ -14,7 +14,7 @@ int main() {
     // --- LOAD PROGRAM ARRAYS FROM FILE ---
     uint8_t progOut[256], progIn1[256], progIn2[256], progFunc[256];
     uint8_t progLen = 0;
-    FILE *in = fopen("..\\DMCPU assembler\\program.txt", "r");
+    FILE *in = fopen(program.txt", "r");
     if (!in) {
         perror("Could not open program.txt");
         return 1;
